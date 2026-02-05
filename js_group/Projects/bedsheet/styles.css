@@ -1,0 +1,44 @@
+/* CSS RESET */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  /* font-size: 10px; */
+}
+
+body {
+  background-color: aliceblue;
+  font-family: "Manrope", sans-serif;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+td,
+th {
+  border: 1px solid #ccc;
+  /* width: 80px; */
+  min-width: 80px;
+  height: 25px;
+  text-align: center;
+}
+
+th {
+  background: #f4f4f4;
+  font-size: 12px;
+}
+
+.cell {
+  outline: none;
+}
+
+.selected {
+  border: 2px solid #217346;
+  overflow-x: hidden;
+}

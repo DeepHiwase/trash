@@ -1,0 +1,63 @@
+/* .container {
+  position: relative;
+}
+
+#circle {
+  width: 40px;
+  height: 40px;
+
+  background-color: rebeccapurple;
+  border-radius: 50%;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  background-color: chartreuse;
+}
+
+.card {
+  background-color: chocolate;
+  padding: 20px;
+  border-radius: 20px;
+}
+
+input {
+  padding: 10px 20px;
+  font-size: 20px;
+}
+
+.btn {
+  background-color: cornflowerblue;
+  border: none;
+  width: 100%;
+  font-weight: bolder;
+
+  color: blue;
+} */
+
+
+body {
+  background-color: black;
+}
+table {
+  border-collapse: collapse;
+}
+.cell {
+  width: 10px;
+  height: 10px;
+  background-color: black;
+  border: 2px solid  rgb(76, 75, 75);
+}

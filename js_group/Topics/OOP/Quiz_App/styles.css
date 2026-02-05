@@ -1,0 +1,50 @@
+/* CSS RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: large;
+  height: 100vh;
+  background-color: aquamarine;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#container {
+  padding: 20px 250px;
+
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  background-color: white;
+
+  border-radius: 6px;
+  border: 6px dashed slateblue;
+}
+
+#timer {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+}
+
+.btn {
+  padding: 2px 4px;
+}
+
+#next {
+  fl
+}
+
+
+

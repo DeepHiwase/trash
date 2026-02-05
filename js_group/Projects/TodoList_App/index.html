@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Title -->
+  <title>Todo List App - Modern JS</title>
+
+  <!-- CSS Link -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+  <section id="todo-app">
+    <div class="container">
+      <!-- Top Section -->
+      <section id="input-section">
+        <input type="text" placeholder="Add todo here..." maxlength="200" id="todo-ipt">
+        <button id="add-btn" class="btn">Add</button>
+      </section>
+
+      <!-- Bottom Section -->
+      <section id="todo-list-section">
+        <!-- Categories -->
+        <section id="categories-section">
+          <button id="all-todos-btn" class="btn">All Todos</button>
+          <button id="not-completed-btn" class="btn">Not completed</button>
+          <button id="completed-btn" class="btn">Completed</button>
+        </section>
+
+        <!-- Listing section -->
+        <!-- checkbox, todo, delete-btn -->
+        <section id="list-todos-section"></section>
+      </section>
+
+      <section id="stats-section">
+        <div id="stats-total">Total:0</div>
+        <div id="stats-not-completed">Not Completed:0</div>
+        <div id="stats-completed">Completed:0</div>
+      </section>
+    </div>
+  </section>
+
+  <script src="./script.js"></script>
+</body>
+
+</html>
