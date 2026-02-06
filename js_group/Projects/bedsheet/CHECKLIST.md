@@ -37,7 +37,7 @@ Core Features Required:
 
 - [x] Copy cell (Ctrl+C)
 - [x] Paste cell (Ctrl+V)
-- [ ] Clear cell (Delete)
+- [x] Clear cell (Delete)
 - [ ] Undo/Redo basic
 - [ ] Select range
 

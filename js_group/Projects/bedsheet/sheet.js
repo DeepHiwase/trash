@@ -159,7 +159,11 @@ class Grid {
         //   .catch((err) => console.error(err));
         navigator.clipboard
           .readText()
-          .then((response) => (selectedCell.innerText = response))
+          .then((response) => {
+            selectedCell.innerText = response;
+            this.#data[selectedCell.id] = selectedCell.innerText;
+            this.#saveData();
+          })
           .catch((err) => err);
       } else if (evnt.key === "Delete" && selectedCell) {
         evnt.preventDefault();
