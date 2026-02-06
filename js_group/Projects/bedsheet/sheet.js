@@ -254,11 +254,8 @@ function sum(startRange, endRange, data) {
   let endRangeRow = +endRange.slice(1);
   let sum = 0;
   if (startRangeColumn === endRangeColumn) {
-    // ❌
     for (let i = startRangeRow; i <= endRangeRow; ++i) {
-      sum +=
-        data[`${startRangeColumn}${i}`] ??
-        Number(data[`${startRangeColumn}${i}`]);
+      sum += Number(data[`${startRangeColumn}${i}`]);
     }
   } else if (startRangeRow === endRangeRow) {
     for (
@@ -267,6 +264,19 @@ function sum(startRange, endRange, data) {
       ++i
     ) {
       sum += Number(data[`${String.fromCharCode(i)}${startRangeRow}`]);
+    }
+  } else {
+    // 2d
+    // outer -> rowWise
+    for (let i = startRangeRow; i <= endRangeRow; ++i) {
+      // inner -> columnWise
+      for (
+        let j = startRangeColumn.charCodeAt(0);
+        j <= endRangeColumn.charCodeAt(0);
+        ++j
+      ) {
+        sum += Number(data[`${String.fromCharCode(j)}${i}`]);
+      }
     }
   }
 
