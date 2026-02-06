@@ -97,10 +97,30 @@ class Grid {
           .toLowerCase();
         console.log(formula);
 
+        const firstBracketIndex = bluredElement.innerText
+          .trim()
+          .split("")
+          .indexOf("(");
+        const lastBracketIndex = bluredElement.innerText
+          .trim()
+          .split("")
+          .indexOf(")");
+        const range = bluredElement.innerText
+          .trim()
+          .slice(firstBracketIndex + 1, lastBracketIndex);
+        const [startRange, endRange] = range.split(":");
+
         switch (formula) {
-          case "sum": {
-            
-          }
+          case "sum":
+            {
+              // bluredElement.innerText = sum("A1", "C1", this.#data);
+              bluredElement.innerText = sum(startRange, endRange, this.#data);
+            }
+            break;
+          default:
+            bluredElement.innerText = eval(
+              bluredElement.innerText.trim().slice(1),
+            );
         }
       }
 
@@ -224,6 +244,36 @@ class Grid {
   }
 }
 
+function sum(startRange, endRange, data) {
+  // startRange   A1
+  // endRange     A10
+  // if single row -> 1d loop
+  let startRangeColumn = startRange[0];
+  let endRangeColumn = endRange[0];
+  let startRangeRow = +startRange.slice(1);
+  let endRangeRow = +endRange.slice(1);
+  let sum = 0;
+  if (startRangeColumn === endRangeColumn) {
+    // ❌
+    for (let i = startRangeRow; i <= endRangeRow; ++i) {
+      sum +=
+        data[`${startRangeColumn}${i}`] ??
+        Number(data[`${startRangeColumn}${i}`]);
+    }
+  } else if (startRangeRow === endRangeRow) {
+    for (
+      let i = startRangeColumn.charCodeAt(0);
+      i <= endRangeColumn.charCodeAt(0);
+      ++i
+    ) {
+      sum += Number(data[`${String.fromCharCode(i)}${startRangeRow}`]);
+    }
+  }
+
+  return sum;
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   const grid = new Grid();
+  // console.log(sum("A1", "C1", JSON.parse(localStorage.getItem("spreadsheet"))));
 });

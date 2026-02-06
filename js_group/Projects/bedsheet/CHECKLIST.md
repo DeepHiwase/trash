@@ -24,7 +24,7 @@ Core Features Required:
 
 ### Basic formulas:
 
-- [ ] SUM(A1:A5)
+- [x] SUM(A1:A5)
 - [ ] AVG(B1:B10)
 - [ ] MIN/MAX
 - [ ] COUNT
