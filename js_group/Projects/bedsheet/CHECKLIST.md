@@ -9,7 +9,7 @@ Core Features Required:
 - [x] Dynamic grid (min 20x20)
 - [x] Row/column headers (A,B,C... 1,2,3...)
 - [x] Cell selection (click)
-- [ ] Cell navigation (arrows)
+- [x] Cell navigation (arrows)
 - [x] Visible grid lines
 
 ## Cell Editing
@@ -17,8 +17,8 @@ Core Features Required:
 - [x] Click to select cell
 - [x] Double-click to edit
 - [x] Enter to confirm
-- [ ] Escape to cancel
-- [ ] Tab to next cell
+- [x] Escape to cancel
+- [x] Tab to next cell
 
 ## Formula Support
 

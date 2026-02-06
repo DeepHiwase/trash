@@ -1,12 +1,12 @@
 const container = document.getElementById("spreadsheet-container");
-const rows = 20;
-const cols = 20;
+const rows = 40;
+const cols = 26;
 let selectedCell = null;
 
 class Grid {
   #data;
   constructor() {
-    this.#data = JSON.parse(localStorage.getItem('spreadsheet')) || {};
+    this.#data = JSON.parse(localStorage.getItem("spreadsheet")) || {};
     this.#createGrid();
     // this.#data = new Map(JSON.parse(localStorage.getItem("spreadsheet")) || {});
     // this.#data = new Map(); // map
@@ -37,7 +37,9 @@ class Grid {
           cell.id = `${String.fromCharCode(64 + j)}${i}`;
           // console.log(this.#data.has(cell.id))
           // cell.innerText = this.#data.has(cell.id) ? this.#data.get(cell.id) : null;
-          cell.innerText = this.#data.hasOwnProperty(cell.id) ? this.#data[cell.id] : null;
+          cell.innerText = this.#data.hasOwnProperty(cell.id)
+            ? this.#data[cell.id]
+            : null;
           cell.contentEditable = false;
         }
 
@@ -57,7 +59,7 @@ class Grid {
       }
       selectedCell = clickedElement;
       selectedCell.classList.add("selected");
-    })
+    });
 
     table.addEventListener("dblclick", (evnt) => {
       const dblClickedElement = evnt.target;
@@ -71,7 +73,7 @@ class Grid {
       selectedCell.classList.add("selected");
       selectedCell.contentEditable = true;
       selectedCell.focus();
-    })
+    });
 
     table.addEventListener("focusout", (evnt) => {
       const bluredElement = evnt.target;
@@ -80,12 +82,32 @@ class Grid {
       }
       bluredElement.contentEditable = false;
       if (bluredElement.innerText.trim() === "") {
-        this.#data.delete(bluredElement.id);
+        // this.#data.delete(bluredElement.id);
+        return;
       }
+
+      // calculation part
+      if (bluredElement.innerText.trim()[0] === "=") {
+        // trigger formula functions
+        // console.log("formula")
+        const formula = bluredElement.innerText
+          .trim()
+          .split("(")[0]
+          .slice(1)
+          .toLowerCase();
+        console.log(formula);
+
+        switch (formula) {
+          case "sum": {
+            
+          }
+        }
+      }
+
       // this.#data.set(bluredElement.id, bluredElement.innerText);
       this.#data[bluredElement.id] = bluredElement.innerText;
       this.#saveData();
-    })
+    });
 
     table.addEventListener("keydown", (evnt) => {
       if (evnt.key === "Enter") {
@@ -93,12 +115,106 @@ class Grid {
         selectedCell.blur(); // triggers focusout
       } else if (evnt.key === "Escape") {
         evnt.preventDefault();
+        selectedCell.innerText = "";
         selectedCell.blur();
-      } else if (evnt.ctrlKey === true && evnt.key === "C" && selectedCell.innerText) {
+      } else if (
+        evnt.ctrlKey === true &&
+        evnt.key === "C" &&
+        selectedCell.innerText
+      ) {
         navigator.clipboard.writeText(selectedCell.innerText);
         console.log(navigator.clipboard.readText());
+      } else if (
+        evnt.key === "ArrowUp" ||
+        evnt.key === "ArrowDown" ||
+        evnt.key === "ArrowLeft" ||
+        evnt.key === "ArrowRight"
+      ) {
+        const column = selectedCell.id.split("")[0];
+        const row = +selectedCell.id.slice(1);
+
+        switch (evnt.key) {
+          case "ArrowUp": {
+            if (row - 1 >= 1) {
+              selectedCell.classList.remove("selected");
+
+              selectedCell = document.querySelector(`#${column}${row - 1}`);
+              // console.log(selectedCell);
+              selectedCell.classList.add("selected");
+              selectedCell.contentEditable = true;
+              selectedCell.focus();
+            }
+            return;
+          }
+          case "ArrowDown": {
+            if (row + 1 <= rows) {
+              selectedCell.classList.remove("selected");
+
+              selectedCell = document.querySelector(`#${column}${row + 1}`);
+              // console.log(selectedCell);
+              selectedCell.classList.add("selected");
+              selectedCell.contentEditable = true;
+              selectedCell.focus();
+            }
+            return;
+          }
+          case "ArrowLeft": {
+            if (column.charCodeAt(0) - 1 >= 65) {
+              selectedCell.classList.remove("selected");
+
+              selectedCell = document.querySelector(
+                `#${String.fromCharCode(column.charCodeAt(0) - 1)}${row}`,
+              );
+              // console.log(selectedCell);
+              selectedCell.classList.add("selected");
+              selectedCell.contentEditable = true;
+              selectedCell.focus();
+            }
+            return;
+          }
+          case "ArrowRight": {
+            if (column.charCodeAt(0) + 1 <= 90) {
+              selectedCell.classList.remove("selected");
+
+              selectedCell = document.querySelector(
+                `#${String.fromCharCode(column.charCodeAt(0) + 1)}${row}`,
+              );
+              // console.log(selectedCell);
+              selectedCell.classList.add("selected");
+              selectedCell.contentEditable = true;
+              selectedCell.focus();
+            }
+            return;
+          }
+        }
+      } else if (evnt.key === "Tab") {
+        evnt.preventDefault();
+        const column = selectedCell.id.split("")[0];
+        const row = +selectedCell.id.slice(1);
+
+        if (column === "Z" && row === rows) {
+          selectedCell.classList.remove("selected");
+          selectedCell = document.querySelector(`#A1`);
+          selectedCell.classList.add("selected");
+          selectedCell.contentEditable = true;
+          selectedCell.focus();
+        } else if (column === "Z") {
+          selectedCell.classList.remove("selected");
+          selectedCell = document.querySelector(`#A${row + 1}`);
+          selectedCell.classList.add("selected");
+          selectedCell.contentEditable = true;
+          selectedCell.focus();
+        } else {
+          selectedCell.classList.remove("selected");
+          selectedCell = document.querySelector(
+            `#${String.fromCharCode(column.charCodeAt(0) + 1)}${row}`,
+          );
+          selectedCell.classList.add("selected");
+          selectedCell.contentEditable = true;
+          selectedCell.focus();
+        }
       }
-    })
+    });
 
     container.appendChild(table);
   }
@@ -108,4 +224,6 @@ class Grid {
   }
 }
 
-const grid = new Grid();
+document.addEventListener("DOMContentLoaded", () => {
+  const grid = new Grid();
+});
