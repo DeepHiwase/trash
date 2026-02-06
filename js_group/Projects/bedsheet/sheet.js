@@ -137,13 +137,36 @@ class Grid {
         evnt.preventDefault();
         selectedCell.innerText = "";
         selectedCell.blur();
-      } else if (
-        evnt.ctrlKey === true &&
-        evnt.key === "C" &&
-        selectedCell.innerText
-      ) {
-        navigator.clipboard.writeText(selectedCell.innerText);
-        console.log(navigator.clipboard.readText());
+      } else if (evnt.ctrlKey && evnt.key === "c" && selectedCell) {
+        evnt.preventDefault();
+        console.log("copy");
+        navigator.clipboard
+          .writeText(selectedCell.innerText)
+          .then((response) => console.log(response))
+          .catch((err) => console.error(err));
+        console.log(
+          navigator.clipboard
+            .readText()
+            .then((response) => response)
+            .catch((err) => err),
+        );
+      } else if (evnt.ctrlKey && evnt.key === "v" && selectedCell) {
+        evnt.preventDefault();
+        console.log("paste");
+        // navigator.clipboard
+        //   .writeText(selectedCell.innerText)
+        //   .then((response) => console.log(response))
+        //   .catch((err) => console.error(err));
+        navigator.clipboard
+          .readText()
+          .then((response) => (selectedCell.innerText = response))
+          .catch((err) => err);
+      } else if (evnt.key === "Delete" && selectedCell) {
+        evnt.preventDefault();
+        console.log("delete");
+        selectedCell.innerText = "";
+        delete this.#data[selectedCell.id];
+        this.#saveData();
       } else if (
         evnt.key === "ArrowUp" ||
         evnt.key === "ArrowDown" ||
