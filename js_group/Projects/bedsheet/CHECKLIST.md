@@ -60,9 +60,9 @@ Core Features Required:
 ## Technical Requirements:
 
 - [ ] Cell class with formula parser
-- [ ] Grid manager class
-- [ ] Formula evaluation engine
-- [ ] Event handling for shortcuts
+- [x] Grid manager class
+- [x] Formula evaluation engine
+- [x] Event handling for shortcuts
 - [ ] Efficient rendering
 
 ## Bonus Features (Optional):

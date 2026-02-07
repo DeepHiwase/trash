@@ -18,16 +18,22 @@ function fetchCommentsBYPostId(postId) {
   ).then((response) => response.json());
 }
 
-function renderComments(comments) {
+function renderComments(comments, users) {
   const commentsSection = document.getElementById("comments");
 
   const ulElement = document.createElement("ul");
+
+  // const users = fetchUsers();
+  // console.log(users);
 
   if (comments.length > 0) {
     comments.forEach((comment) => {
       const list = document.createElement("li");
       list.innerText = comment.body;
-      ulElement.appendChild(list);
+
+      const userNameBlock = renderUserName(comment.email, users);
+
+      ulElement.append(list, userNameBlock);
     });
   }
 
@@ -56,14 +62,41 @@ function renderPost(post) {
   return post.id;
 }
 
+function fetchUsers() {
+  const users = fetch("https://jsonplaceholder.typicode.com/users")
+    .then((response) => response.json())
+    .then((users) => users)
+    .catch((err) => console.log(err));
+
+  return users;
+}
+
+function renderUserName(commentEmail, users = []) {
+  const user = users.find((user) => user.email === commentEmail);
+
+  const para = document.createElement("p");
+  para.innerText = user.name;
+
+  return para;
+}
+
+// function fetchUserNameByEmail(email) {
+//   const user = fetch("https://jsonplaceholder.typicode.com/users");
+// }
+
 document.addEventListener("DOMContentLoaded", () => {
   document.querySelector("#show").addEventListener("click", () => {
     showLoader();
 
+    // const users = fetchUsers();
+    // console.log(users);
+
     fetchPostsById(document.querySelector("#posts-id").value)
       .then(renderPost)
       .then(fetchCommentsBYPostId)
-      .then(renderComments)
+      .then((response) => {
+        fetchUsers().then((users) => renderComments(response, users));
+      })
       .finally(clearLoader);
   });
 });

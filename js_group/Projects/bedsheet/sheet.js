@@ -310,6 +310,45 @@ function sum(startRange, endRange, data) {
   return sum;
 }
 
+function count(startRange, endRange, data) {
+  // startRange   A1
+  // endRange     A10
+  // if single row -> 1d loop
+  let startRangeColumn = startRange[0];
+  let endRangeColumn = endRange[0];
+  let startRangeRow = +startRange.slice(1);
+  let endRangeRow = +endRange.slice(1);
+  let count = 0;
+  if (startRangeColumn === endRangeColumn) {
+    for (let i = startRangeRow; i <= endRangeRow; ++i) {
+      count += 1;
+    }
+  } else if (startRangeRow === endRangeRow) {
+    for (
+      let i = startRangeColumn.charCodeAt(0);
+      i <= endRangeColumn.charCodeAt(0);
+      ++i
+    ) {
+      count += 1;
+    }
+  } else {
+    // 2d
+    // outer -> rowWise
+    for (let i = startRangeRow; i <= endRangeRow; ++i) {
+      // inner -> columnWise
+      for (
+        let j = startRangeColumn.charCodeAt(0);
+        j <= endRangeColumn.charCodeAt(0);
+        ++j
+      ) {
+        count += 1;
+      }
+    }
+  }
+
+  return count;
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   const grid = new Grid();
   // console.log(sum("A1", "C1", JSON.parse(localStorage.getItem("spreadsheet"))));
