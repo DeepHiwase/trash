@@ -29,11 +29,15 @@ function renderComments(comments, users) {
   if (comments.length > 0) {
     comments.forEach((comment) => {
       const list = document.createElement("li");
-      list.innerText = comment.body;
+      list.innerText = `${comment.body} 
+      
+                                    - by ${comment.user.name}
+      
+      `;
 
-      const userNameBlock = renderUserName(comment.email, users);
+      // const userNameBlock = renderUserName(comment.email, users);
 
-      ulElement.append(list, userNameBlock);
+      ulElement.append(list);
     });
   }
 
@@ -62,11 +66,18 @@ function renderPost(post) {
   return post.id;
 }
 
-function fetchUsers() {
+function fetchUsers(comments) {
   const users = fetch("https://jsonplaceholder.typicode.com/users")
     .then((response) => response.json())
-    .then((users) => users)
-    .catch((err) => console.log(err));
+    .then((users /*users*/) => {
+      return comments.map((comment) => {
+        return {
+          ...comment,
+          user: users[Math.floor(Math.random() * users.length)],
+        };
+      });
+    });
+  // .catch((err) => console.log(err));
 
   return users;
 }
@@ -94,9 +105,13 @@ document.addEventListener("DOMContentLoaded", () => {
     fetchPostsById(document.querySelector("#posts-id").value)
       .then(renderPost)
       .then(fetchCommentsBYPostId)
-      .then((response) => {
-        fetchUsers().then((users) => renderComments(response, users));
-      })
+      // .then(
+      // (response) => {
+      //   fetchUsers().then((users) => renderComments(response, users));
+      // })
+      // .finally(clearLoader);
+      .then(fetchUsers)
+      .then(renderComments)
       .finally(clearLoader);
   });
 });
