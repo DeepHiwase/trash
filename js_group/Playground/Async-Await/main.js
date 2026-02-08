@@ -38,7 +38,7 @@ function fetchUser(id) {
 async function fetchUserData(id) {
   //(id: any): Promise<void>
   // value return -> means resolve -> means go to then() ✅
-  // value thrown -> means reject -> means go to catch() block 💎 ✅ 
+  // value thrown -> means reject -> means go to catch() block 💎 ✅
   try {
     const user = await fetchUser(id);
     console.log(user);
@@ -50,6 +50,8 @@ async function fetchUserData(id) {
     // return -> reject() ❌ wrong it will resolve again and it will get to then() block
     // so you must throw err to be able to catch by catch() block -> throw means reject ✅
     throw err; // then only reject(err)
+  } finally {
+    console.log("Finally Done!");
   }
 }
 
@@ -60,3 +62,5 @@ console.log("Before operations");
 fetchUserData(0).then(console.log).catch(console.error);
 console.log("After operations");
 // if you use .then/catch it will not wait to complete it and do next func i.e. here After operations -> to stop execution - use await
+
+// ===================================
