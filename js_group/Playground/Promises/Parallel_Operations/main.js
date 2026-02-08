@@ -68,3 +68,12 @@ Promise.allSettled([
 
 // if fullfilled -> value
 // if reject -> reason
+
+// ============================ Promise Methods =============================
+Promise.resolve();
+Promise.reject();
+// ============================= Parallel Operations with Promise  ==============================
+Promise.all();
+Promise.allSettled();
+Promise.any();
+Promise.race();
