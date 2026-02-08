@@ -4,11 +4,16 @@ function f() {
   // f(): number
   return 1;
 }
-async function f() {
+async function f2() {
   // f(): Promise<number>
   return 1;
 }
 // this means that, async before function -> function always returns a promise
+
+async function f3() {
+  return 1;
+}
+f3().then(console.log);
 
 function fetchUser(id) {
   return new Promise((resolve, reject) => {
@@ -64,3 +69,4 @@ console.log("After operations");
 // if you use .then/catch it will not wait to complete it and do next func i.e. here After operations -> to stop execution - use await
 
 // ===================================
+
