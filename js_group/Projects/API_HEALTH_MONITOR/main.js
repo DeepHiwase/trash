@@ -58,8 +58,8 @@ document.addEventListener("DOMContentLoaded", () => {
     .then((res) => console.log(res));
 });
 
-console.table();
+// console.table();
 
-Promise.all(); // check for all status
-Promise.any(); // check any one is fastest
-Promise.race(); // check if fastest one is in timout  -> if not error else success // server which one is fastest and timesout function with delay you want within
+// Promise.all(); // check for all status
+// Promise.any(); // check any one is fastest
+// Promise.race(); // check if fastest one is in timout  -> if not error else success // server which one is fastest and timesout function with delay you want within
