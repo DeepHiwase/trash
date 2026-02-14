@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ES6</title>
+</head>
+
+<body>
+
+  <!-- 
+    type module - comes in ES6 (ECMAScript2015)
+    make restrict to use functions in each other file - restrictive 👲 - so not add those things defined in diff scripts into global context i.e. window obj
+    to access only what wanted - export/import <- this are enable to use if type="module"
+
+    you can't modify data of a one script logic from other, you only can call function when import and read data. can't modify even if it declare with `let`. 💀 its like #private declare var which are like only do changes when there given setter function 👲 similer not actually that 
+  -->
+
+  <!-- even if intersection.js is not imported but still its get executed, modules check for file imports in each file and create a dependency graph for imported files to track them and their defined code -->
+  <script type="module" src="./main.js"></script>
+  <script type="module" src="./script.js"></script>
+</body>
+
+</html>

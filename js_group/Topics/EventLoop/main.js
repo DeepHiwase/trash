@@ -48,3 +48,5 @@ queueMicrotask(() => {
 });
 
 // MutationObserver
+
+// Since priority is given to microstask code, it block ui or freeze as ui interaction is less prorities as it a task queue and if something come like which is long running, it block to execute task queue functions 💎
